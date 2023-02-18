@@ -18,7 +18,7 @@ function counterReducer( state = initialState, action ) {
     } else if( action.type === "decrement" ) {
         return {
             ...state,
-            value: state.value - 1,
+            value: state.value == 0 ? 0 : state.value - 1,
         };
     } else{
         return state;
@@ -32,6 +32,11 @@ const store = Redux.createStore(counterReducer);
 const render = () => {
     const state         = store.getState();
     displayEl.innerText = state.value;
+    if(state.value == 0){
+        decrementEl.style.display = "none";
+    }else{
+        decrementEl.style.display = "block";
+    }
 }
 
 // Update UI initially
